@@ -1,4 +1,4 @@
-package com.example.ContactManager;
+package com.example.ContactManager.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,4 +10,6 @@ public class Controller {
     public String hello() {
         return "Hello world!";
     }
+
+
 }
