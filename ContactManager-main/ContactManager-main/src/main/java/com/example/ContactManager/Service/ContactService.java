@@ -1,11 +1,14 @@
 package com.example.ContactManager.Service;
 
+import com.example.ContactManager.Dto.ContactDto;
 import com.example.ContactManager.Model.Contact;
 import com.example.ContactManager.Repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -18,11 +21,17 @@ public class ContactService {
     public ContactService (ContactRepository contactRepository) {
         this.contactRepository = contactRepository;
     }
-    public List<Contact> getAllContacts() {
-        return contactRepository.findAll();
+    public List<ContactDto> getAllContacts() {
+        List<Contact> allContacts = contactRepository.findAll();
+        List<ContactDto> allContactsDto = new ArrayList<>();
+        for (var contact : allContacts) {
+            allContactsDto.add(this.contactToContactDto(contact));
+        }
+        return allContactsDto;
     }
 
-    public void insertContact(Contact contact) {
+    public void insertContact(ContactDto contactDto) {
+        Contact contact = this.contactDtoToContact(contactDto);
         contactRepository.save(contact);
     }
 
@@ -30,15 +39,36 @@ public class ContactService {
         contactRepository.deleteByContactId(id);
     }
 
-    public void updateContact(Contact contact) {
-        Contact myContact = contactRepository.findByContactId(contact.getContactId());
-        myContact.setContactId(contact.getContactId());
-        myContact.setFirstName(contact.getFirstName());
-        myContact.setLastName(contact.getLastName());
-        myContact.setAddress(contact.getAddress());
-        myContact.setPhone(contact.getPhone());
-        myContact.setUserId(contact.getUserId());
-        myContact.setTypeID(contact.getTypeID());
+    public void updateContact(ContactDto contactDto, UUID id) { //+ ID
+        Contact myContact = contactRepository.findByContactId(id);
+        this.inputParametersToContactDto(contactDto, myContact);
         contactRepository.save(myContact);
     }
+
+    private void inputParametersToContactDto (ContactDto contactDto, Contact myContact) {
+        myContact.setFirstName(contactDto.getFirstName());
+        myContact.setLastName(contactDto.getLastName());
+        myContact.setAddress(contactDto.getAddress());
+        myContact.setPhone(contactDto.getPhone());
+    }
+
+    private ContactDto contactToContactDto (Contact contact) {
+        ContactDto contactDto = new ContactDto();
+        contactDto.setFirstName(contact.getFirstName());
+        contactDto.setLastName(contact.getLastName());
+        contactDto.setPhone(contact.getPhone());
+        contactDto.setAddress(contact.getAddress());
+        return contactDto;
+    }
+
+    private Contact contactDtoToContact (ContactDto contactDto) {
+        Contact contact = new Contact();
+        contact.setFirstName(contactDto.getFirstName());
+        contact.setLastName(contactDto.getLastName());
+        contact.setPhone(contactDto.getPhone());
+        contact.setAddress(contactDto.getAddress());
+        contact.setTypeID(contactDto.getTypeId());
+        return contact;
+    }
+
 }

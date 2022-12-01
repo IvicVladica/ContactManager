@@ -16,4 +16,5 @@ public class ContactDto {
     private String lastName;
     private String phone;
     private String address;
+    private int typeId;
 }

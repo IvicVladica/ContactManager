@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import javax.transaction.Transactional;
 import java.util.UUID;
 
-public interface ContactRepository extends JpaRepository<Contact, Integer>{
+public interface ContactRepository extends JpaRepository<Contact, UUID>{
 
     @Transactional
     void deleteByContactId(UUID id);

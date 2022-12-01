@@ -4,11 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -22,6 +18,7 @@ import java.util.UUID;
 public class User {
     @Id
     @Column(name = "user_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID userId;
 
     @Column(name = "username")
@@ -36,10 +33,10 @@ public class User {
     @Column(name = "user_type")
     private String userType;
 
-    @Column(name = "created_at")
+    @Column(name = "created_date")
     private LocalDate createdAt;
 
-    @Column(name = "modified_at")
+    @Column(name = "modified_date")
     private LocalDate modifiedAt;
 
 }
