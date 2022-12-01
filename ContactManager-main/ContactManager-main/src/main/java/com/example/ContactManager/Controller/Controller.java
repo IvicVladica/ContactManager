@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class Controller {
@@ -28,9 +29,13 @@ public class Controller {
         contactService.insertContact(contact);
     }
 
-    @DeleteMapping("/api/contacts/delete")
-    public void DeleteContact(@RequestBody int id) {
+    @DeleteMapping("/api/contacts/delete/{id}")
+    public void DeleteContact(@PathVariable UUID id) {
         contactService.deleteContact(id);
     }
 
+    @PatchMapping("/api/contacts/patch")
+    public void UpdateContact(@RequestBody Contact contact) {
+        contactService.updateContact(contact);
+    }
 }

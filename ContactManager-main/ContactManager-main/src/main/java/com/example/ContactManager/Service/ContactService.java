@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ContactService {
@@ -25,7 +26,19 @@ public class ContactService {
         contactRepository.save(contact);
     }
 
-    public void deleteContact(Integer id) {
-        contactRepository.deleteById(id);
+    public void deleteContact(UUID id) {
+        contactRepository.deleteByContactId(id);
+    }
+
+    public void updateContact(Contact contact) {
+        Contact myContact = contactRepository.findByContactId(contact.getContactId());
+        myContact.setContactId(contact.getContactId());
+        myContact.setFirstName(contact.getFirstName());
+        myContact.setLastName(contact.getLastName());
+        myContact.setAddress(contact.getAddress());
+        myContact.setPhone(contact.getPhone());
+        myContact.setUserId(contact.getUserId());
+        myContact.setTypeID(contact.getTypeID());
+        contactRepository.save(myContact);
     }
 }

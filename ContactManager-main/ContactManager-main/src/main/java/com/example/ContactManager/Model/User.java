@@ -5,10 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -16,16 +18,28 @@ import java.time.LocalDate;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "user_table")
+@Table(name = "users")
 public class User {
     @Id
-    private int user_id;
-    private String first_name;
-    private String last_name;
+    @Column(name = "user_id")
+    private UUID userId;
+
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "password")
     private String password;
-    private String user_type;
-    private LocalDate created_at;
-    private LocalDate modified_at;
+
+    @Column(name = "user_type")
+    private String userType;
+
+    @Column(name = "created_at")
+    private LocalDate createdAt;
+
+    @Column(name = "modified_at")
+    private LocalDate modifiedAt;
 
 }
