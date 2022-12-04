@@ -39,7 +39,7 @@ public class ContactService {
         contactRepository.deleteByContactId(id);
     }
 
-    public void updateContact(ContactDto contactDto, UUID id) { //+ ID
+    public void updateContact(ContactDto contactDto, UUID id) { //+ ID  Entity not found
         Contact myContact = contactRepository.findByContactId(id);
         this.inputParametersToContactDto(contactDto, myContact);
         contactRepository.save(myContact);
