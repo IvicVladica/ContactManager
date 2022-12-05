@@ -1,6 +1,7 @@
 package com.example.ContactManager.Service;
 
 import com.example.ContactManager.Dto.ContactDto;
+import com.example.ContactManager.Exceptions.NoSuchIdExistsException;
 import com.example.ContactManager.Model.Contact;
 import com.example.ContactManager.Repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -36,10 +36,16 @@ public class ContactService {
     }
 
     public void deleteContact(UUID id) {
+        if (contactRepository.findByContactId(id) == null) {
+            throw new NoSuchIdExistsException();
+        }
         contactRepository.deleteByContactId(id);
     }
 
     public void updateContact(ContactDto contactDto, UUID id) { //+ ID  Entity not found
+        if (contactRepository.findByContactId(id) == null) {
+            throw new NoSuchIdExistsException();
+        }
         Contact myContact = contactRepository.findByContactId(id);
         this.inputParametersToContactDto(contactDto, myContact);
         contactRepository.save(myContact);
