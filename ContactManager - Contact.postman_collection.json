@@ -1,0 +1,173 @@
+{
+	"info": {
+		"_postman_id": "5852bf57-f609-4601-8f75-c7bdff31e491",
+		"name": "ContactManager - Contact",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/api/contacts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userName\": \"string\",\r\n  \"password\": \"Abcdef1234!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/contacts",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"contacts"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "localhost:8080/api/contacts",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/contacts",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"contacts"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 06 Dec 2022 12:01:29 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"firstName\": \"James\",\n        \"lastName\": \"Bond\",\n        \"phone\": \"007\",\n        \"address\": \"secret\",\n        \"typeId\": 0\n    },\n    {\n        \"firstName\": \"Ian\",\n        \"lastName\": \"Gillan\",\n        \"phone\": \"008\",\n        \"address\": \"secret\",\n        \"typeId\": 0\n    },\n    {\n        \"firstName\": \"Vlatko\",\n        \"lastName\": \"Stefanovski\",\n        \"phone\": \"0601234567\",\n        \"address\": \"Skopje\",\n        \"typeId\": 0\n    },\n    {\n        \"firstName\": \"Rambo mega mega car\",\n        \"lastName\": \"Amadeus mega mega car\",\n        \"phone\": \"008008 car\",\n        \"address\": \"stvarno muzicar\",\n        \"typeId\": 0\n    },\n    {\n        \"firstName\": \"\",\n        \"lastName\": \"Stefanovski\",\n        \"phone\": \"\",\n        \"address\": \"Skopje\",\n        \"typeId\": 0\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "localhost:8080/api/contacts/create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"contact_id\": 5,\r\n        \"first_name\": null,\r\n        \"last_name\": null,\r\n        \"phone_number\": null,\r\n        \"address\": null,\r\n        \"user_id\": 5\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/contacts/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"contacts",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/contacts/delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/contacts/delete",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"contacts",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/contacts/patch",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"firstName\": \"Ian\",\r\n        \"lastName\": \"Gillan\",\r\n        \"phone\": \"008\",\r\n        \"address\": \"secret\",\r\n        \"userId\": null,\r\n        \"typeID\": 1\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/contacts/patch",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"contacts",
+						"patch"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
