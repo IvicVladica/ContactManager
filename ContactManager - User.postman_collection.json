@@ -1,0 +1,58 @@
+{
+	"info": {
+		"_postman_id": "22ea56b3-3362-4fbe-806a-f1d4f37603f5",
+		"name": "ContactManager - User",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/api/users/create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/users/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/users/patch",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"contact_id\": 5,\r\n        \"first_name\": null,\r\n        \"last_name\": null,\r\n        \"phone_number\": null,\r\n        \"address\": null,\r\n        \"user_id\": 5\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/users/patch",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"patch"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

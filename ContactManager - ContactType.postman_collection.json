@@ -1,0 +1,58 @@
+{
+	"info": {
+		"_postman_id": "2d15cd15-f1c4-4aba-88f8-1e756dd5706a",
+		"name": "ContactManager - ContactType",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/api/type/create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/type/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"type",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/type/patch",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"typeId\" : 4,\r\n    \"contactType\" : \"job\",\r\n    \"description\" : \"colleagues\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/type/patch",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"type",
+						"patch"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
