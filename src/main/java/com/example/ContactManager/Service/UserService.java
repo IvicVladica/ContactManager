@@ -7,16 +7,24 @@ import com.example.ContactManager.Exceptions.UserAlreadyExistsException;
 import com.example.ContactManager.Model.User;
 import com.example.ContactManager.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.net.UnknownServiceException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
 @Service
-public class UserService {
+public class UserService  {
 
     private UserRepository userRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -27,8 +35,11 @@ public class UserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+    public User findUser (String username) {
+        return userRepository.findByUsername(username);
+    }
+
     public void insertUser (UserDto userDto) {
-        userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         User user = this.UserDtoToUser(userDto);
         String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         if(userRepository.findByEmail(user.getEmail())!= null) {
@@ -68,9 +79,10 @@ public class UserService {
     public User UserDtoToUser (UserDto userDto) {
         User user = new User();
         user.setUsername(userDto.getUsername());
-        user.setPassword(userDto.getPassword());
+        user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         user.setEmail(userDto.getEmail());
         user.setUserType(userDto.getUserType());
         return user;
     }
+
 }

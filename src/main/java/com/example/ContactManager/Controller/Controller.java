@@ -56,6 +56,10 @@ public class Controller {
         userService.insertUser(userDto);
     }
 
+//    @PostMapping("api/users/login")
+//    public void logUser(@RequestBody UserDto userDto) {
+//    };
+
     @PatchMapping("api/users/patch/{id}")
     public void updateUser(@RequestBody UserDto userDto, @PathVariable UUID id) {
         userService.updateUser(userDto, id);
