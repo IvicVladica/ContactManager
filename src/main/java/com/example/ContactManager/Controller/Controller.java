@@ -2,18 +2,13 @@ package com.example.ContactManager.Controller;
 
 import com.example.ContactManager.Dto.ContactDto;
 import com.example.ContactManager.Dto.UserDto;
-import com.example.ContactManager.Model.Contact;
-
 import com.example.ContactManager.Model.ContactType;
-import com.example.ContactManager.Model.User;
-import com.example.ContactManager.Security.JWTAuthenticationFilter;
 import com.example.ContactManager.Service.ContactService;
 import com.example.ContactManager.Service.ContactTypeService;
 import com.example.ContactManager.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -56,9 +51,9 @@ public class Controller {
         userService.insertUser(userDto);
     }
 
-//    @PostMapping("api/users/login")
-//    public void logUser(@RequestBody UserDto userDto) {
-//    };
+    @PostMapping("api/users/login")
+    public void logUser(@RequestBody UserDto userDto) {
+    };
 
     @PatchMapping("api/users/patch/{id}")
     public void updateUser(@RequestBody UserDto userDto, @PathVariable UUID id) {

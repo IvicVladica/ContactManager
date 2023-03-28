@@ -7,19 +7,10 @@ import com.example.ContactManager.Exceptions.UserAlreadyExistsException;
 import com.example.ContactManager.Model.User;
 import com.example.ContactManager.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.net.UnknownServiceException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
@@ -58,9 +49,9 @@ public class UserService  {
         if (userRepository.findByUserId(id) == null) {
             throw new NoSuchIdExistsException();
         }String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-        if(userRepository.findByEmail(userDto.getEmail())!= null) {
-            throw new UserAlreadyExistsException();
-        }
+//        if(userRepository.findByEmail(userDto.getEmail())!= null) {
+//            throw new UserAlreadyExistsException();
+//        }
         if(!Pattern.matches(regex, userDto.getEmail())) {
             throw new EmailValidationException();
         }
@@ -71,7 +62,7 @@ public class UserService  {
 
     public void inputParametersToUserDto (UserDto userDto, User myUser) {
         myUser.setUsername(userDto.getUsername());
-        myUser.setPassword(userDto.getPassword());
+        myUser.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         myUser.setEmail(userDto.getEmail());
         myUser.setUserType(userDto.getUserType());
     }
