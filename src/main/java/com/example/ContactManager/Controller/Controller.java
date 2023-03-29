@@ -7,6 +7,7 @@ import com.example.ContactManager.Service.ContactService;
 import com.example.ContactManager.Service.ContactTypeService;
 import com.example.ContactManager.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,6 +38,7 @@ public class Controller {
     }
 
     @DeleteMapping("/api/contacts/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void DeleteContact(@PathVariable UUID id) {
         contactService.deleteContact(id);
     }
@@ -47,25 +49,29 @@ public class Controller {
     }
 
     @PostMapping("api/users/create")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void insertUser(@RequestBody UserDto userDto) {
         userService.insertUser(userDto);
     }
 
     @PostMapping("api/users/login")
     public void logUser(@RequestBody UserDto userDto) {
-    };
+    }
 
     @PatchMapping("api/users/patch/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void updateUser(@RequestBody UserDto userDto, @PathVariable UUID id) {
         userService.updateUser(userDto, id);
     }
 
     @PostMapping("api/type/create")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void insertContactType(@RequestBody ContactType contactType) {
         contactTypeService.insertContactType(contactType);
     }
 
     @PatchMapping("api/type/patch")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void updateContactType(@RequestBody ContactType contactType) {
         contactTypeService.updateContactType(contactType);
     }
