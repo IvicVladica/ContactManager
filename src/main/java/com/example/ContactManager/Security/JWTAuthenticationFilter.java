@@ -1,9 +1,9 @@
 package com.example.ContactManager.Security;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.example.ContactManager.Dto.UserSecurity;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,7 +14,6 @@ import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 
 import static com.example.ContactManager.Security.SecurityConstants.EXPIRATION_TIME;
@@ -41,7 +40,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                     new UsernamePasswordAuthenticationToken(
                             creds.getUsername(),
                             creds.getPassword(),
-                            new ArrayList<>())
+                            creds.getAuthorities())
             );
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -54,15 +53,19 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             FilterChain chain,
                                             Authentication auth) throws IOException {
 
-        String token = JWT.create()
-                .withSubject(auth.getName())
-                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .sign(Algorithm.HMAC512(SECRET.getBytes()));
+        String token = Jwts.builder()
+                .setSubject(auth.getName())
+                .claim("authorities", auth.getAuthorities())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .signWith(Keys.hmacShaKeyFor(SECRET.getBytes()))
+                .compact();
 
         String body = ((UserSecurity) auth.getPrincipal()).getUsername() + " " + token;
 
-        res.getWriter().write(body);
-        res.getWriter().flush();
+        res.addHeader("Authorization", "Bearer" + token);
+//        res.getWriter().write(body);
+//        res.getWriter().flush();
        System.out.println(token);
     }
 }
