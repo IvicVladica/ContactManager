@@ -36,8 +36,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                .addFilterAfter(new JWTAuthorizationFilter(), JWTAuthenticationFilter.class)
                 .authorizeRequests()
-//                .antMatchers("/").permitAll()
+                .antMatchers("/").permitAll()
 //                .antMatchers("api/contacts/**").hasRole(USER.name())
                 .anyRequest()
                 .authenticated();

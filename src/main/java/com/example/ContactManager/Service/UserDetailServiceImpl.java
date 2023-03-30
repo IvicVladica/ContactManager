@@ -18,21 +18,18 @@ public class UserDetailServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Autowired
-    public UserDetailServiceImpl (UserRepository userRepository) {
+    public UserDetailServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-      //  org.springframework.security.core.userdetails.User user = userRepository.findByUsername(username);
         User user = userRepository.findByUsername(username);
         UserSecurity userSecurity = new UserSecurity();
         if (user == null) {
             throw new UsernameNotFoundException("User not found in database");
         }
         Collection<SimpleGrantedAuthority> authorities = UserType.valueOf(user.getUserType()).getGrantedAuthorities();
-    //    Collection<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(user.getUserType()));
-    //    return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
         userSecurity.setUsername(user.getUsername());
         userSecurity.setPassword(user.getPassword());
         userSecurity.setAuthorities(authorities);

@@ -1,13 +1,12 @@
 package com.example.ContactManager.Dto;
 
-import com.example.ContactManager.Enums.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
+
 import javax.validation.constraints.Email;
-import java.util.Collection;
 
 
 @Getter
