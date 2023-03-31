@@ -14,7 +14,7 @@ import java.util.UUID;
 @Service
 public class ContactService {
 
-    private ContactRepository contactRepository;
+    private final ContactRepository contactRepository;
     //metoda koja od DTO pravi entitesku klasu i puni svim field-ovima
 
     @Autowired

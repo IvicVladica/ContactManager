@@ -1,26 +1,34 @@
 package com.example.ContactManager.Dto;
 
-import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
+import lombok.*;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
+@Builder
 
 public class ContactDto {
 
-    @NotNull
+    @NotBlank(message = "Invalid name: empty name")
+    @NotNull(message = "Invalid name: Name is null")
     private String firstName;
-    @NotNull
+
+    @NotBlank(message = "Invalid name: empty name")
+    @NotNull(message = "Invalid name: Name is null")
     private String lastName;
-    @NotNull
+
+
     private String phone;
-    @NotNull
+
+
     private String address;
-    @NotNull
+
+
     private int typeId;
 }

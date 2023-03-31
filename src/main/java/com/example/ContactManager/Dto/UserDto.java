@@ -1,9 +1,6 @@
 package com.example.ContactManager.Dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
@@ -13,6 +10,9 @@ import javax.validation.constraints.Email;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
+@Builder
+
 public class UserDto {
 
     @Length(min = 3, message = "Username must be at least 3 characters long")

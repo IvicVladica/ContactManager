@@ -10,15 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
 public class Controller {
 
-    private ContactService contactService;
-    private UserService userService;
-    private ContactTypeService contactTypeService;
+    private final ContactService contactService;
+    private final UserService userService;
+    private final ContactTypeService contactTypeService;
 
     @Autowired
     public Controller (ContactService contactService, UserService userService, ContactTypeService contactTypeService) {
@@ -33,7 +34,7 @@ public class Controller {
     }
 
     @PostMapping("/api/contacts/create")
-    public void InsertContact(@RequestBody ContactDto contactDto) {
+    public void InsertContact(@RequestBody @Valid ContactDto contactDto) {
         contactService.insertContact(contactDto);
     }
 
@@ -50,7 +51,7 @@ public class Controller {
 
     @PostMapping("api/users/create")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void insertUser(@RequestBody UserDto userDto) {
+    public void insertUser(@RequestBody @Valid UserDto userDto) {
         userService.insertUser(userDto);
     }
 
