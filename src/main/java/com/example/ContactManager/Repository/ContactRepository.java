@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -13,6 +14,7 @@ public interface ContactRepository extends JpaRepository<Contact, UUID>{
     @Transactional
     void deleteByContactId(UUID id);
     Contact findByContactId(UUID id);
+    List<Contact> findAllByUserId(UUID id);
 }
 
 

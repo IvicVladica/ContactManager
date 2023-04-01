@@ -6,6 +6,10 @@ import com.example.ContactManager.Exceptions.NoSuchIdExistsException;
 import com.example.ContactManager.Exceptions.UserAlreadyExistsException;
 import com.example.ContactManager.Model.User;
 import com.example.ContactManager.Repository.UserRepository;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,6 +17,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.UUID;
 import java.util.regex.Pattern;
+
+import static com.example.ContactManager.Security.SecurityConstants.SECRET;
 
 @Service
 public class UserService  {
@@ -74,6 +80,18 @@ public class UserService  {
         user.setEmail(userDto.getEmail());
         user.setUserType(userDto.getUserType());
         return user;
+    }
+
+    public UUID getUserIdFromToken (String header) {
+        String token = header.replace("Bearer ", "");
+        Jws<Claims> claimsJws = Jwts.parser()
+                .setSigningKey(Keys.hmacShaKeyFor(SECRET.getBytes()))
+                .parseClaimsJws(token);
+
+        Claims body = claimsJws.getBody();
+        User user = userRepository.findByUsername(body.getSubject());
+        UUID id = user.getUserId();
+        return id;
     }
 
 }

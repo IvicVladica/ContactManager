@@ -29,8 +29,9 @@ public class Controller {
     }
 
     @GetMapping("/api/contacts")
-    public List<ContactDto> ListAll() {
-        return contactService.getAllContacts();
+    public List<ContactDto> ListAll(@RequestHeader("Authorization") String token) {
+        UUID id = userService.getUserIdFromToken(token);
+        return contactService.getAllContacts(id);
     }
 
     @PostMapping("/api/contacts/create")

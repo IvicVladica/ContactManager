@@ -15,14 +15,14 @@ import java.util.UUID;
 public class ContactService {
 
     private final ContactRepository contactRepository;
-    //metoda koja od DTO pravi entitesku klasu i puni svim field-ovima
 
     @Autowired
     public ContactService (ContactRepository contactRepository) {
         this.contactRepository = contactRepository;
     }
-    public List<ContactDto> getAllContacts() {
-        List<Contact> allContacts = contactRepository.findAll();
+
+    public List<ContactDto> getAllContacts(UUID id) {
+        List<Contact> allContacts = contactRepository.findAllByUserId(id);
         List<ContactDto> allContactsDto = new ArrayList<>();
         for (var contact : allContacts) {
             allContactsDto.add(this.contactToContactDto(contact));
