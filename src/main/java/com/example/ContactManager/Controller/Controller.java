@@ -35,8 +35,9 @@ public class Controller {
     }
 
     @PostMapping("/api/contacts/create")
-    public void InsertContact(@RequestBody @Valid ContactDto contactDto) {
-        contactService.insertContact(contactDto);
+    public void InsertContact(@RequestBody @Valid ContactDto contactDto, @RequestHeader ("Authorization") String token) {
+        UUID id = userService.getUserIdFromToken(token);
+        contactService.insertContact(contactDto, id);
     }
 
     @DeleteMapping("/api/contacts/delete/{id}")

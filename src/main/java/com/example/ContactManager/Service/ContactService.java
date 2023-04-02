@@ -30,8 +30,9 @@ public class ContactService {
         return allContactsDto;
     }
 
-    public void insertContact(ContactDto contactDto) {
+    public void insertContact(ContactDto contactDto, UUID id) {
         Contact contact = this.contactDtoToContact(contactDto);
+        contact.setUserId(id);
         contactRepository.save(contact);
     }
 
