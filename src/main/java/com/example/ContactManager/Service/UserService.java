@@ -23,8 +23,8 @@ import static com.example.ContactManager.Security.SecurityConstants.SECRET;
 @Service
 public class UserService  {
 
-    private UserRepository userRepository;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public UserService (UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -90,8 +90,7 @@ public class UserService  {
 
         Claims body = claimsJws.getBody();
         User user = userRepository.findByUsername(body.getSubject());
-        UUID id = user.getUserId();
-        return id;
+        return user.getUserId();
     }
 
 }

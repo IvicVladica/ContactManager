@@ -16,8 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 
-import static com.example.ContactManager.Security.SecurityConstants.EXPIRATION_TIME;
-import static com.example.ContactManager.Security.SecurityConstants.SECRET;
+import static com.example.ContactManager.Security.SecurityConstants.*;
 
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -61,10 +60,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .signWith(Keys.hmacShaKeyFor(SECRET.getBytes()))
                 .compact();
 
-        String body = ((UserSecurity) auth.getPrincipal()).getUsername() + " " + token;
+//        String body = ((UserSecurity) auth.getPrincipal()).getUsername() + " " + token;
 
-        res.addHeader("Authorization", "Bearer " + token);
-//        res.getWriter().write(body);
+        res.addHeader(HEADER_STRING, "Bearer " + token);
+
 //        res.getWriter().flush();
        System.out.println(token);
     }

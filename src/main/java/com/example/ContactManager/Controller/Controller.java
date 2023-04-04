@@ -29,24 +29,27 @@ public class Controller {
     }
 
     @GetMapping("/api/contacts")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public List<ContactDto> ListAll(@RequestHeader("Authorization") String token) {
         UUID id = userService.getUserIdFromToken(token);
         return contactService.getAllContacts(id);
     }
 
     @PostMapping("/api/contacts/create")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public void InsertContact(@RequestBody @Valid ContactDto contactDto, @RequestHeader ("Authorization") String token) {
         UUID id = userService.getUserIdFromToken(token);
         contactService.insertContact(contactDto, id);
     }
 
     @DeleteMapping("/api/contacts/delete/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     public void DeleteContact(@PathVariable UUID id) {
         contactService.deleteContact(id);
     }
 
     @PatchMapping("/api/contacts/patch/{id}")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public void UpdateContact(@RequestBody ContactDto contactDto, @PathVariable UUID id) {
         contactService.updateContact(contactDto, id);
     }
